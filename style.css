@@ -325,3 +325,84 @@ h3 {
 .add-button:hover {
   background-color: #45a049;
 }
+
+/* Modal Container */
+#custom-modal {
+  position: fixed; /* Ensures the modal stays fixed relative to the screen */
+  top: 0; /* Start at the top of the viewport */
+  left: 0; /* Start at the left of the viewport */
+  width: 100%; /* Full width of the viewport */
+  height: 100%; /* Full height of the viewport */
+  background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black background */
+  display: none; /* Initially hidden */
+  align-items: center; /* Vertically center modal content */
+  justify-content: center; /* Horizontally center modal content */
+  z-index: 10000; /* High value to ensure it's on top */
+}
+
+
+/* Modal Content */
+.modal-content {
+  background-color: #fff; /* White background for modal box */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for emphasis */
+  width: 50%;
+  max-width: 500px; /* Limit the modal width */
+  text-align: center;
+  position: relative; /* Necessary for positioning child elements */
+}
+
+/* Close Button */
+.close-modal {
+  color: #aaa;
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close-modal:hover,
+.close-modal:focus {
+  color: black;
+}
+
+/* OK Button */
+#modal-ok {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+#modal-ok:hover {
+  background-color: #45a049;
+}
+
+/* Cancel Button */
+#modal-message button {
+  background-color: #f44336;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+#modal-message button:hover {
+  background-color: #d32f2f;
+}
+
+
+/* Responsive Design for Smaller Screens */
+@media (max-width: 768px) {
+  .modal-content {
+    width: 90%; /* Full width for smaller screens */
+  }
+}
+
+

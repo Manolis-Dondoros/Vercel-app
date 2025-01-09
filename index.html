@@ -77,7 +77,6 @@
                 <h3>Διαχείριση</h3>
                 <ul>
                     <li><a href="#" data-aside="admin-login">Είσοδος</a></li>
-                    <li><a href="#" data-aside="admin-settings">Ρυθμίσεις</a></li>
                 </ul>
             </div>
         </aside>
@@ -580,12 +579,20 @@
                 </div>
             </section>
 
+            <!-- Modal -->
+            <div id="custom-modal" class="hidden-content">
+                <div class="modal-content">
+                    <span class="close-modal">&times;</span>
+                    <p id="modal-message"></p>
+                    <button id="modal-ok">OK</button>
+                </div>
+            </div>
+            
+
 
             <!-- Admin Management -->
+            
             <section id="admin-management" class="hidden-content">
-                <h2>Διαχείριση</h2>
-                <button id="logout-button">Αποσύνδεση</button>
-
             </section>
         </main>
 

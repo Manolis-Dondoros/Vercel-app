@@ -81,15 +81,17 @@ document.addEventListener("DOMContentLoaded", function () {
     
 
 
-    function handleEdit(exhibition, row) {
+    async function handleEdit(exhibition, row) {
         const type = row.closest("tbody").id.replace("-output", ""); // Extract type
-        const updatedName = prompt("Edit Exhibition Name:", exhibition.exhibitionname);
-        const updatedDate = prompt("Edit Date:", exhibition.date);
-        const updatedDescription = prompt("Edit Description:", exhibition.Description);
-
+    
+        // Await the user inputs from the modal
+        const updatedName = await showInputModal("Edit Exhibition Name:", exhibition.exhibitionname);
+        const updatedDate = await showInputModal("Edit Date:", exhibition.date);
+        const updatedDescription = await showInputModal("Edit Description:", exhibition.Description);
+    
         if (updatedName && updatedDate && updatedDescription) {
             const updatedData = { exhibitionname: updatedName, date: updatedDate, Description: updatedDescription };
-
+    
             fetch('/edit', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -101,19 +103,20 @@ document.addEventListener("DOMContentLoaded", function () {
                         row.querySelector("td:nth-child(1)").textContent = updatedName;
                         row.querySelector("td:nth-child(2)").textContent = updatedDate;
                         row.querySelector("td:nth-child(3)").textContent = updatedDescription;
-                        alert("Exhibition updated successfully.");
+                        showModal("Exhibition updated successfully.");
                     } else {
-                        alert(data.message);
+                        showModal(data.message);
                     }
                 })
                 .catch(console.error);
         }
     }
+    
 
-    function handleEditLink(item, row, type) {
-        const updatedName = prompt(`Edit ${type === "links" ? "Website Name" : "Source Name"}:`, item.websitename);
-        const updatedUrl = prompt("Edit Link:", item.link);
-        const updatedDescription = prompt("Edit Description:", item.Description);
+    async function handleEditLink(item, row, type) {
+        const updatedName = await showInputModal(`Edit ${type === "links" ? "Website Name" : "Source Name"}:`, item.websitename);
+        const updatedUrl = await showInputModal("Edit Link:", item.link);
+        const updatedDescription = await showInputModal("Edit Description:", item.Description);
     
         if (updatedName && updatedUrl && updatedDescription) {
             const updatedData = { websitename: updatedName, link: updatedUrl, Description: updatedDescription };
@@ -121,7 +124,7 @@ document.addEventListener("DOMContentLoaded", function () {
             fetch(`/edit-link`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ websitename: item.websitename, updatedData, type }), // Include the type
+                body: JSON.stringify({ websitename: item.websitename, updatedData, type }),
             })
                 .then((response) => response.json())
                 .then((data) => {
@@ -129,25 +132,27 @@ document.addEventListener("DOMContentLoaded", function () {
                         row.querySelector("td:nth-child(1)").textContent = updatedName;
                         row.querySelector("td:nth-child(2)").innerHTML = `<a href="${updatedUrl}" target="_blank">${updatedUrl}</a>`;
                         row.querySelector("td:nth-child(3)").textContent = updatedDescription;
-                        alert(`${type === "links" ? "Link" : "Link source"} updated successfully.`);
+                        showModal(`${type === "links" ? "Link" : "Link source"} updated successfully.`);
                     } else {
-                        alert(data.message); // Show the backend error message
+                        showModal(data.message);
                     }
                 })
                 .catch((error) => {
                     console.error(`Error editing ${type}:`, error);
-                    alert(`An error occurred while editing the ${type}.`);
+                    showModal(`An error occurred while editing the ${type}.`);
                 });
         }
     }
     
+    
 
 
 
-    function handleDelete(exhibition, row) {
+    async function handleDelete(exhibition, row) {
         const type = row.closest("tbody").id.replace("-output", "");
-
-        if (confirm("Are you sure you want to delete this exhibition?")) {
+    
+        const confirmed = await showConfirmModal("Are you sure you want to delete this exhibition?");
+        if (confirmed) {
             fetch('/delete', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -157,56 +162,55 @@ document.addEventListener("DOMContentLoaded", function () {
                 .then((data) => {
                     if (data.success) {
                         row.remove();
-                        alert("Exhibition deleted successfully.");
+                        showModal("Exhibition deleted successfully.");
                     } else {
-                        alert(data.message);
+                        showModal(data.message);
                     }
                 })
                 .catch(console.error);
         }
     }
+    
 
-    function handleDeleteLink(item, row, type) {
+    async function handleDeleteLink(item, row, type) {
         const confirmationMessage = type === "links"
             ? "Are you sure you want to delete this link?"
             : "Are you sure you want to delete this link source?";
     
-        if (confirm(confirmationMessage)) {
+        const confirmed = await showConfirmModal(confirmationMessage);
+        if (confirmed) {
             fetch(`/delete-link`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ websitename: item.websitename, type }), // Include the type
+                body: JSON.stringify({ websitename: item.websitename, type }),
             })
-                .then((response) => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
+                .then((response) => response.json())
                 .then((data) => {
                     if (data.success) {
                         row.remove(); // Remove the row from the table
-                        alert(`${type === "links" ? "Link" : "Link source"} deleted successfully.`);
+                        showModal(`${type === "links" ? "Link" : "Link source"} deleted successfully.`);
                     } else {
-                        alert(data.message); // Show the backend error message
+                        showModal(data.message);
                     }
                 })
                 .catch((error) => {
                     console.error(`Error deleting ${type}:`, error);
-                    alert(`An error occurred while deleting the ${type}.`);
+                    showModal(`An error occurred while deleting the ${type}.`);
                 });
         }
     }
     
+    
 
-    function handleAddExhibition(type) {
-        const name = prompt("Enter the exhibition name:");
-        const date = prompt("Enter the exhibition date:");
-        const description = prompt("Enter the exhibition description:");
-
+    async function handleAddExhibition(type) {
+        // Await the user inputs from the modal
+        const name = await showInputModal("Enter the exhibition name:");
+        const date = await showInputModal("Enter the exhibition date:");
+        const description = await showInputModal("Enter the exhibition description:");
+    
         if (name && date && description) {
             const newExhibition = { exhibitionname: name, date: date, Description: description };
-
+    
             fetch('/add', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -215,24 +219,24 @@ document.addEventListener("DOMContentLoaded", function () {
                 .then((response) => response.json())
                 .then((data) => {
                     if (data.success) {
-                        alert("Exhibition added successfully.");
+                        showModal("Exhibition added successfully.");
                         location.reload(); // Reload to update the table
                     } else {
-                        alert(data.message);
+                        showModal(data.message);
                     }
                 })
                 .catch(console.error);
         }
     }
-
-    function handleAddLink() {
-        const name = prompt("Enter the website name:");
-        const link = prompt("Enter the website link:");
-        const description = prompt("Enter the website description:");
-
+    
+    async function handleAddLink() {
+        const name = await showInputModal("Enter the website name:");
+        const link = await showInputModal("Enter the website link:");
+        const description = await showInputModal("Enter the website description:");
+    
         if (name && link && description) {
             const newLink = { websitename: name, link: link, Description: description };
-
+    
             fetch('/add-link', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -241,24 +245,26 @@ document.addEventListener("DOMContentLoaded", function () {
                 .then((response) => response.json())
                 .then((data) => {
                     if (data.success) {
-                        alert("Link added successfully.");
+                        showModal("Link added successfully.");
                         location.reload(); // Reload to update the table
                     } else {
-                        alert(data.message);
+                        showModal(data.message);
                     }
                 })
                 .catch(console.error);
         }
     }
+    
 
-    function handleAddLinkSource() {
-        const name = prompt("Enter the source name:");
-        const link = prompt("Enter the source link:");
-        const description = prompt("Enter the source description:");
-
+    async function handleAddLinkSource() {
+        // Await the user inputs from the modal
+        const name = await showInputModal("Enter the source name:");
+        const link = await showInputModal("Enter the source link:");
+        const description = await showInputModal("Enter the source description:");
+    
         if (name && link && description) {
             const newSource = { websitename: name, link: link, Description: description };
-
+    
             fetch('/add-link-source', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -267,15 +273,16 @@ document.addEventListener("DOMContentLoaded", function () {
                 .then((response) => response.json())
                 .then((data) => {
                     if (data.success) {
-                        alert("Link source added successfully.");
+                        showModal("Link source added successfully.");
                         location.reload(); // Reload to update the table
                     } else {
-                        alert(data.message);
+                        showModal(data.message);
                     }
                 })
                 .catch(console.error);
         }
     }
+    
 
 
     // Attach event listeners to Edit and Delete buttons dynamically
@@ -353,7 +360,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (username === "admin" && password === "1234") {
             isAdminLoggedIn = true;
             localStorage.setItem("isAdminLoggedIn", "true");
-            alert("Καλώς ήρθατε, Διαχειριστή!");
+            showModal("Καλώς ήρθατε, Διαχειριστή!");
             updateVisibility();
         } else {
             loginError.style.display = "block";
@@ -366,7 +373,7 @@ document.addEventListener("DOMContentLoaded", function () {
         logoutButton.addEventListener("click", () => {
             isAdminLoggedIn = false;
             localStorage.setItem("isAdminLoggedIn", "false");
-            alert("Έχετε αποσυνδεθεί.");
+            showModal("Έχετε αποσυνδεθεί.");
             updateVisibility();
         });
     }
@@ -510,5 +517,117 @@ document.addEventListener("DOMContentLoaded", function () {
             placeholder.innerHTML = out;
             addEditButtons(isAdminLoggedIn);
         });
+
+        function showModal(message) {
+            const modal = document.getElementById('custom-modal');
+            const modalMessage = document.getElementById('modal-message');
+            const closeModal = document.querySelector('.close-modal');
+            const modalOk = document.getElementById('modal-ok');
+        
+            // Set the message and show the modal
+            modalMessage.textContent = message;
+            modal.style.display = 'flex'; // Use flexbox to center the modal
+        
+            const closeHandler = () => {
+                modal.style.display = 'none'; // Hide the modal
+                closeModal.removeEventListener('click', closeHandler);
+                modalOk.removeEventListener('click', closeHandler);
+            };
+        
+            closeModal.addEventListener('click', closeHandler);
+            modalOk.addEventListener('click', closeHandler);
+        }
+        
+
+          function showInputModal(promptMessage, defaultValue = "") {
+            return new Promise((resolve) => {
+                const modal = document.getElementById("custom-modal");
+                const modalMessage = document.getElementById("modal-message");
+                const closeModal = document.querySelector(".close-modal");
+                const modalOk = document.getElementById("modal-ok");
+        
+                // Clear previous content and add the prompt message
+                modalMessage.innerHTML = `${promptMessage}<br>`;
+        
+                // Create and configure the input field
+                const inputField = document.createElement("input");
+                inputField.type = "text";
+                inputField.value = defaultValue;
+                inputField.style.width = "90%";
+                inputField.style.marginTop = "10px";
+                inputField.style.padding = "10px";
+                modalMessage.appendChild(inputField);
+        
+                // Show the modal
+                modal.style.display = "flex";
+        
+                const closeHandler = () => {
+                    modal.style.display = "none";
+                    inputField.remove(); // Remove the input field
+                    closeModal.removeEventListener("click", closeHandler);
+                    modalOk.removeEventListener("click", okHandler);
+                };
+        
+                const okHandler = () => {
+                    resolve(inputField.value); // Resolve the input value
+                    closeHandler();
+                };
+        
+                closeModal.addEventListener("click", closeHandler);
+                modalOk.addEventListener("click", okHandler);
+            });
+        }
+        
+        function showConfirmModal(message) {
+            return new Promise((resolve) => {
+                const modal = document.getElementById("custom-modal");
+                const modalMessage = document.getElementById("modal-message");
+                const closeModal = document.querySelector(".close-modal");
+                const modalOk = document.getElementById("modal-ok");
+        
+                // Clear previous content and add the confirmation message
+                modalMessage.innerHTML = `${message}<br>`;
+        
+                // Create and configure the "Cancel" button
+                const cancelButton = document.createElement("button");
+                cancelButton.textContent = "Cancel";
+                cancelButton.style.marginRight = "10px";
+                cancelButton.style.backgroundColor = "#f44336"; // Red color for cancel button
+                cancelButton.style.color = "white";
+                cancelButton.style.border = "none";
+                cancelButton.style.padding = "10px 20px";
+                cancelButton.style.cursor = "pointer";
+                modalMessage.appendChild(cancelButton);
+        
+                // Show the modal
+                modal.style.display = "flex";
+        
+                const closeHandler = () => {
+                    modal.style.display = "none";
+                    cancelButton.remove(); // Remove the cancel button
+                    closeModal.removeEventListener("click", cancelHandler);
+                    cancelButton.removeEventListener("click", cancelHandler);
+                    modalOk.removeEventListener("click", okHandler);
+                };
+        
+                const cancelHandler = () => {
+                    resolve(false); // Resolve with false if "Cancel" is clicked
+                    closeHandler();
+                };
+        
+                const okHandler = () => {
+                    resolve(true); // Resolve with true if "OK" is clicked
+                    closeHandler();
+                };
+        
+                closeModal.addEventListener("click", cancelHandler);
+                cancelButton.addEventListener("click", cancelHandler);
+                modalOk.addEventListener("click", okHandler);
+            });
+        }
+        
+        
+        
+        
 
 });

@@ -146,18 +146,29 @@ app.post('/edit-link', (req, res) => {
         return res.status(400).json({ success: false, message: 'Invalid type for links.' });
     }
 
-    const filePath = jsonFiles[type]; // Get the correct file path based on type
+    const filePath = jsonFiles[type]; // Correctly mapped file path
+    if (!filePath) {
+        return res.status(404).json({ success: false, message: `${type} file not found.` });
+    }
+
     const data = readJson(filePath);
-    const index = data.findIndex((item) => item.websitename === websitename);
+
+    // Normalize both strings by trimming and converting to lowercase
+    const normalizedWebsitename = websitename.trim().toLowerCase();
+    const index = data.findIndex(
+        (item) => item.websitename.trim().toLowerCase() === normalizedWebsitename
+    );
 
     if (index !== -1) {
+        // Merge updated data into the existing entry
         data[index] = { ...data[index], ...updatedData };
         writeJson(filePath, data);
-        return res.json({ success: true, message: `${type} updated successfully.` });
+        res.json({ success: true, message: `${type} updated successfully.` });
     } else {
-        return res.status(404).json({ success: false, message: `${type} not found.` });
+        res.status(404).json({ success: false, message: `Websitename "${websitename}" not found in ${type}.` });
     }
 });
+
 
 
 

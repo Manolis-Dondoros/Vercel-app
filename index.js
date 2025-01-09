@@ -20,6 +20,10 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'script.js'));
 });
 
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'images'));
+});
+
 // Example API route
 app.get('/testGet', (req, res) => {
     res.json({ 'message': 'hello' });

@@ -1,0 +1,327 @@
+/* Basic Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Playfair Display', serif;
+}
+
+/* Body and Container */
+body {
+  line-height: 1.6;
+  background: #fff;
+  font-size: 17px;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  grid-template-rows: auto auto 1fr auto;
+  grid-template-areas:
+    "header header"
+    "nav nav"
+    "aside main"
+    "footer footer";
+  min-height: 100vh;
+}
+
+/* Header */
+header {
+  grid-area: header;
+  background: #0c1445;
+  color: #fdd835;
+  padding: 1rem;
+  text-align: center;
+}
+
+/* Navigation */
+nav {
+  grid-area: nav;
+  background: linear-gradient(90deg, #1a237e, #3c44a9);
+  color: #fdd835;
+  padding: 0.5rem 1rem;
+}
+
+nav ul {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+}
+
+nav li {
+  margin-right: 1rem;
+}
+
+nav a {
+  color: #fdd835;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+/* Aside */
+aside {
+  grid-area: aside;
+  background: #3c44a9;
+  color: #fff;
+  padding: 1rem;
+}
+
+/* Main Content */
+main {
+  grid-area: main;
+  background: #b3cde0;
+  color: #0c1445;
+  padding: 1rem;
+}
+
+/* Footer */
+footer {
+  grid-area: footer;
+  background: #0c1445;
+  color: #fdd835;
+  text-align: center;
+  padding: 1rem;
+}
+
+/* Hidden Content (Initially Hidden) */
+.hidden-content {
+  display: none; /* Hide by default */
+}
+
+.hidden-submenu {
+  display: none; /* Hide submenus by default */
+}
+
+.hidden-submenu a {
+  color: #fff; /* Set the text color to white */
+  text-decoration: none; /* Optional: Remove underline */
+}
+
+.hidden-submenu a:hover {
+  text-decoration: underline; /* Optional: Add underline on hover */
+}
+
+/* Home Section */
+#home {
+  display: flex; /* Use flexbox to align items side by side */
+  align-items: center; /* Align items vertically */
+  justify-content: space-between; /* Add space between the image and text */
+  background: #b3cde0;
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.home-content {
+  display: flex; /* Flexbox layout for the image and text */
+  align-items: center; /* Center align items vertically */
+  gap: 1.5rem; /* Add space between the image and text */
+}
+
+.home-image {
+  max-width: 300px; /* Set a maximum width for the image */
+  width: 100%; /* Make it responsive */
+  border-radius: 8px; /* Optional: Rounded corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Optional: Add a shadow */
+}
+
+.home-text {
+  flex: 1; /* Allow the text to take up remaining space */
+  max-width: 600px; /* Set a maximum width for better readability */
+  margin: 0; /* Remove default margin */
+}
+
+.home-text h2 {
+  font-size: 2rem; /* Increase font size for the title */
+  color: #0c1445; /* Deep blue text for the title */
+  margin-bottom: 1rem;
+}
+
+.home-text p {
+  font-size: 1rem;
+  color: #0c1445; /* Deep blue for body text */
+  line-height: 1.6;
+}
+
+/* Bio Section Images */
+.bio-image {
+  max-width: 300px;
+  width: 100%;
+  float: left;
+  margin-right: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.bio-text::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Paintings Section - Gallery */
+.image-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  padding: 20px;
+}
+
+.image-container {
+  flex: 1 1 calc(25% - 30px); /* Flexible width, up to 4 per row */
+  max-width: 400px; /* Maximum width for each image */
+  position: relative;
+  overflow: hidden;
+  margin: 10px;
+  border-radius: 8px; /* Optional: Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for aesthetics */
+}
+
+.image-grid .grid-image {
+  width: 100%; /* Image width adapts to container */
+  height: auto; /* Maintain natural aspect ratio */
+  display: block;
+}
+
+.image-grid .caption {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #333;
+  margin-top: 5px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .container {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "header"
+      "nav"
+      "main"
+      "aside"
+      "footer";
+  }
+
+  
+
+  .bio-image {
+    float: none;
+    margin: 0 auto 1.5rem;
+    display: block;
+    max-width: 100%;
+  }
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 16px;
+  text-align: left;
+}
+
+.data-table th,
+.data-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.data-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.data-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+  font-family: sans-serif;
+  min-height: 100vh;
+  color: #555;
+}
+
+table{
+  width:  1000px;
+  margin: 30px auto;
+}
+
+table th{
+  padding: 10px 0;
+  background-color: #f4f4f4;
+  /* background-color: #fff; */
+  border:  thin solid #d4d4d4;
+}
+
+table td{
+  padding: 10px;
+  border:  thin solid #d4d4d4;
+  width: 18%;
+  text-align: center;
+  background-color: #fff;
+}
+
+table img{
+  width:  70%;
+}
+
+#admin-login {
+  text-align: center;
+}
+
+#admin-login-form {
+  margin: 20px auto;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#admin-management {
+  margin: 20px;
+}
+
+button {
+  background-color: #1a237e;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #3c44a9;
+}
+
+h3 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  color: #1a237e;
+  font-size: 1.2rem;
+}
+
+.add-button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  margin-left: 10px;
+  border-radius: 5px;
+}
+
+.add-button:hover {
+  background-color: #45a049;
+}

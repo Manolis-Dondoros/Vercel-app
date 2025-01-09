@@ -4,24 +4,27 @@ const fs = require('fs');
 const path = require('path');
 
 
+// Middleware to serve static files
+app.use(express.static(path.join(__dirname)));
+
+// Serve the HTML file for the root route
 app.get('/', (req, res) => {
-    res.send('Express JS on Vercel')
-})
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
 
+// Example API route
 app.get('/testGet', (req, res) => {
-    res.json({'message' : 'hello'});
-})
+    res.json({ 'message': 'hello' });
+});
 
-const port = process.env.PORT || 8080
-
-app.listen(port, (err, res) => {
+const port = process.env.PORT || 8080;
+app.listen(port, (err) => {
     if (err) {
-        console.log(err)
-        return res.status(500).send(err.message)
+        console.log(err);
     } else {
-        console.log('[INFO] Server Running on port:', port)
+        console.log(`[INFO] Server running on port: ${port}`);
     }
-})
+});
 
 module.exports = app;
 

@@ -1,17 +1,27 @@
 const express = require('express');
 const app = express();
-const PORT = 4000;
 const fs = require('fs');
 const path = require('path');
 
 
-app.get('/home', (req, res) => {
-  res.status(200).json('Welcome, your app is working well');
-});
+app.get('/', (req, res) => {
+    res.send('Express JS on Vercel')
+})
 
-app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
-});
+app.get('/testGet', (req, res) => {
+    res.json({'message' : 'hello'});
+})
+
+const port = process.env.PORT || 8080
+
+app.listen(port, (err, res) => {
+    if (err) {
+        console.log(err)
+        return res.status(500).send(err.message)
+    } else {
+        console.log('[INFO] Server Running on port:', port)
+    }
+})
 
 module.exports = app;
 

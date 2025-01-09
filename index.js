@@ -31,13 +31,29 @@ app.get('/testGet', (req, res) => {
 
 const port = process.env.PORT || 8080;
 
-app.listen(port, (err) => {
-    if (err) {
-        console.log(err);
-    } else {
-        console.log(`[INFO] Server running on port: ${port}`);
-    }
-});
+const kill = require("kill-port");
+
+kill(port, "tcp")
+    .then(() => {
+        console.log(`Port ${port} was cleared.`);
+    })
+    .catch((err) => {
+        if (err.message.includes("No process running on port")) {
+            console.log(`No process was running on port ${port}.`);
+        } else {
+            console.error(`Error clearing port ${port}:`, err);
+        }
+    })
+    .finally(() => {
+        // Start the server regardless of the kill-port result
+        app.listen(port, (err) => {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log(`[INFO] Server running on port: ${port}`);
+            }
+        });
+    });
 
 module.exports = app;
 

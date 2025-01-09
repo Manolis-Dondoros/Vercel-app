@@ -12,6 +12,14 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'style.css'));
+});
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'script.js'));
+});
+
 // Example API route
 app.get('/testGet', (req, res) => {
     res.json({ 'message': 'hello' });

@@ -10,23 +10,9 @@ app.use(express.static(path.join(__dirname)));
 // Serve the HTML file for the root route
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
-});
-
-app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'style.css'));
-});
-
-app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'script.js'));
-});
-
-app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'images'));
-});
-
-// Example API route
-app.get('/testGet', (req, res) => {
-    res.json({ 'message': 'hello' });
 });
 
 const port = process.env.PORT || 8080;

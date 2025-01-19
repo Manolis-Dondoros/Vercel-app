@@ -360,7 +360,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (username === "admin" && password === "1234") {
             isAdminLoggedIn = true;
             localStorage.setItem("isAdminLoggedIn", "true");
-            showModal("Καλώς ήρθατε, Διαχειριστή!");
+            showModal("Welcome, Admin!");
             updateVisibility();
         } else {
             loginError.style.display = "block";
@@ -373,7 +373,7 @@ document.addEventListener("DOMContentLoaded", function () {
         logoutButton.addEventListener("click", () => {
             isAdminLoggedIn = false;
             localStorage.setItem("isAdminLoggedIn", "false");
-            showModal("Έχετε αποσυνδεθεί.");
+            showModal("Logout Successful.");
             updateVisibility();
         });
     }

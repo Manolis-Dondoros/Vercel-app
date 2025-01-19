@@ -1,7 +1,37 @@
 [
   {
-    "websitename": "Vincent can Gogh Museum1",
+    "websitename": "Artsy - Vincent van Gogh",
+    "link": "https://www.artsy.net/artist/vincent-van-gogh",
+    "Description": "A platform showcasing Van Gogh's works, auctions, and detailed information about his artistic journey."
+  },
+  {
+    "websitename": "Van Gogh Gallery",
+    "link": "https://www.vangoghgallery.com/",
+    "Description": "A comprehensive online resource dedicated to Van Gogh's art, life, and his most famous works."
+  },
+  {
+    "websitename": "Van Gogh and Japan",
+    "link": "https://www.vangoghmuseum.nl/en/stories/van-gogh-and-japan",
+    "Description": "Explores how Japanese art influenced Van Gogh's style and techniques."
+  },
+  {
+    "websitename": "Van Gogh Paintings in Museums",
+    "link": "https://artsandculture.google.com/story/xgJCUlnq6ASfJw",
+    "Description": "Google Arts & Culture features high-resolution images of Van Gogh's paintings from museums worldwide."
+  },
+  {
+    "websitename": "The Tragic Life of Vincent van Gogh",
+    "link": "https://www.history.com/topics/art-history/vincent-van-gogh",
+    "Description": "A historical overview of Van Gogh's life and artistic legacy, including his challenges and contributions."
+  },
+  {
+    "websitename": "Encyclopedia Britannica - Vincent van Gogh",
+    "link": "https://www.britannica.com/biography/Vincent-van-Gogh",
+    "Description": "A detailed biography of Van Gogh covering his life, works, and influence on modern art."
+  },
+  {
+    "websitename": "Vincent van Gogh Museum",
     "link": "https://www.vangoghmuseum.nl/en/art-and-stories/art/vincent-van-gogh",
-    "Description": "The Vincent van Gogh museum in Amsterdam is one of the most popular museums in the world. It is dedicated to the works of Vincent van Gogh and his contemporaries."
+    "Description": "The official Van Gogh Museum website, offering comprehensive insights into his life, art, and legacy."
   }
 ]

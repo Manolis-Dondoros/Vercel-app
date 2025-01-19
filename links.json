@@ -1,7 +1,27 @@
 [
   {
-    "websitename": "Vincent can Gogh Museum1",
+    "websitename": "Vincent van Gogh Museum",
     "link": "https://www.vangoghmuseum.nl/en/art-and-stories/art/vincent-van-gogh",
     "Description": "The Vincent van Gogh museum in Amsterdam is one of the most popular museums in the world. It is dedicated to the works of Vincent van Gogh and his contemporaries."
+  },
+  {
+    "websitename": "The Met - Vincent van Gogh",
+    "link": "https://www.metmuseum.org/toah/hd/gogh/hd_gogh.htm",
+    "Description": "The Metropolitan Museum of Art provides an overview of Vincent van Gogh's life and key works in their collection."
+  },
+  {
+    "websitename": "Biography.com - Vincent van Gogh",
+    "link": "https://www.biography.com/artist/vincent-van-gogh",
+    "Description": "A comprehensive biography covering Van Gogh's life, struggles, and artistic achievements."
+  },
+  {
+    "websitename": "Vincent van Gogh's Letters",
+    "link": "https://www.webexhibits.org/vangogh/letters.html",
+    "Description": "An online collection of Van Gogh's letters offering insights into his personal thoughts and creative process."
+  },
+  {
+    "websitename": "Tate - Van Gogh",
+    "link": "https://www.tate.org.uk/art/artists/vincent-van-gogh-2135",
+    "Description": "The Tate gallery explores Van Gogh's influence on modern art and highlights some of his iconic works."
   }
 ]
